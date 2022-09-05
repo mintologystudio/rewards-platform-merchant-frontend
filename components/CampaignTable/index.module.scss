@@ -1,0 +1,205 @@
+@import '../../styles/variables.module.scss';
+@import '../../styles/mixin.module.scss';
+
+.container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 100vw;
+  height: 100%;
+
+  margin: 5rem 0;
+}
+
+.content {
+  width: 80vw;
+  max-width: 160rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  &_actionable {
+    width: 100%;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    & input {
+      width: 90%;
+      max-width: 40rem;
+
+      background-color: $lightgrey;
+
+      border: none;
+      box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.07);
+      border-radius: 1rem;
+      // padding: 2rem 2.5rem;
+      padding: 1.5rem 2rem;
+      font-family: $subFont;
+      color: $black;
+      font-weight: 400;
+      font-size: 1.8rem;
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+    & button {
+      background-color: $pink;
+      margin: 0;
+      padding: 1.5rem 3rem;
+      font-family: $baseFont;
+      color: $white;
+      font-weight: 700;
+      border: none;
+      border-radius: 1rem;
+      cursor: pointer;
+    }
+  }
+}
+
+.table {
+  width: 80vw;
+  max-width: 160rem;
+  border-collapse: collapse;
+  margin: 2rem 0;
+  table-layout: fixed;
+
+  box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.09);
+
+  overflow: hidden;
+  border-radius: 1rem;
+
+  &_header {
+    background-color: $black;
+
+    & th {
+      padding: 2rem 0;
+      min-width: 10rem;
+
+      & p {
+        color: $white;
+        font-family: $baseFont;
+        font-weight: 700;
+        font-size: 1.4rem;
+      }
+
+      & button {
+        position: relative;
+        background-color: transparent;
+        margin: 0;
+        padding: 0;
+        border: none;
+        height: 3.6rem;
+        width: 2.4rem;
+        cursor: pointer;
+        margin-left: 0.5rem;
+      }
+    }
+  }
+
+  &_data {
+    background-color: $white;
+    font-family: $subFont;
+    color: $black;
+    font-size: 1.4rem;
+    font-weight: 400;
+
+    & td {
+      text-align: center;
+      padding: 2rem 0;
+
+      & button {
+        background-color: $pink;
+        color: $white;
+        font-family: $subFont;
+        width: 5rem;
+        font-size: 1.2rem;
+
+        border: none;
+        border-radius: 1rem;
+        padding: 0.5rem;
+
+        margin: 0 0.5rem;
+        cursor: pointer;
+      }
+    }
+
+    &_centerObject {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+    }
+  }
+
+  &_none {
+    & td {
+      padding: 10rem 0;
+      background-color: $white;
+      font-family: $subFont;
+      color: $black;
+      font-size: 1.4rem;
+      font-weight: 400;
+      text-align: center;
+    }
+  }
+
+  &_pagination {
+    & td {
+      padding: 2rem 0;
+      background-color: $white;
+      font-family: $subFont;
+      color: $black;
+      font-size: 1.4rem;
+      font-weight: 400;
+      text-align: center;
+    }
+  }
+}
+
+.alignRow {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.options {
+  position: absolute;
+  z-index: 999 !important;
+  top: 3rem;
+  background-color: $white;
+  box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.09);
+  border-radius: 1rem;
+
+  & ul {
+    padding: 0;
+    list-style: none;
+
+    & li {
+      font-family: $baseFont;
+      color: $black;
+      background-color: $white;
+      font-weight: 400;
+      font-size: 1.4rem;
+      padding: 0.5rem 1.5rem;
+      cursor: pointer;
+
+      &:hover {
+        color: $white;
+        background-color: $pink;
+      }
+    }
+  }
+}

@@ -1,0 +1,123 @@
+@import '../../styles/variables.module.scss';
+@import '../../styles/mixin.module.scss';
+
+.container {
+  display: inline-block;
+  position: relative;
+  width: 100vw;
+  height: 40rem;
+
+  @include l {
+    height: 35rem;
+  }
+}
+
+.background {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  opacity: 0.36;
+}
+
+.content {
+  width: 80vw;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  max-width: 160rem;
+
+  @include l {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 35rem;
+  }
+
+  &_logo {
+    position: relative;
+    min-height: 20rem;
+    min-width: 20rem;
+  }
+
+  &_details {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+
+    width: 100%;
+    margin-left: 5rem;
+  }
+
+  &_header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+
+    & h2 {
+      display: flex;
+      color: $black;
+      font-family: $baseFont;
+      margin: 0;
+      text-align: left;
+      font-size: 4.2rem;
+      font-weight: 700;
+
+      @include l {
+        font-size: 4.8rem;
+      }
+    }
+
+    & ul {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+
+      padding: 0;
+      list-style: none;
+
+      & li {
+        cursor: pointer;
+        margin: 0 2rem;
+
+        & a {
+          & path {
+            transition: all 0.5s ease;
+            fill: $black;
+          }
+        }
+
+        &:hover {
+          & a {
+            & path {
+              transition: all 0.5s ease;
+              fill: $pink;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  & p {
+    font-family: $subFont;
+    font-weight: 400;
+    font-size: 1.6rem;
+    line-height: 27px;
+    color: rgba(0, 0, 0, 0.7);
+
+    @include l {
+      font-size: 1.8rem;
+    }
+  }
+}
