@@ -1,6 +1,6 @@
 import styles from './index.module.scss'
 
-enum Status {
+export enum Status {
   ONGOING = 'Ongoing',
   PAUSED = 'Paused',
   CANCELLED = 'Cancelled',
