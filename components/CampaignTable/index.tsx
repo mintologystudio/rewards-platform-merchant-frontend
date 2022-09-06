@@ -5,7 +5,7 @@ import { getReadableDate, getReadableTime } from '../../utils'
 import styles from './index.module.scss'
 import { useRouter } from 'next/router'
 import Routes from '../../utils/constants/routes'
-import StatusTag from '../StatusTag'
+import StatusTag, { Status } from '../StatusTag'
 import Pagination from './Pagination'
 
 import NeutralIcon from '../../public/assets/misc/filter/neutral.svg'
@@ -44,7 +44,7 @@ enum HeaderType {
   Status,
 }
 
-interface ICampaignDetails {
+export interface ICampaignDetails {
   merchantName: string
   merchantAddress: string
   merchantId: number
@@ -469,6 +469,50 @@ const CampaignTable = ({ company }: { company: string }) => {
   }
   //#endregion
 
+  //#region Render type of actions available given status
+  const renderActions = (campaignId: number, status: any) => {
+    return (
+      <>
+        {status !== Status.CANCELLED && status !== Status.ENDED && (
+          <button
+            type="button"
+            onClick={() =>
+              router.push(`${Routes.EDIT_CAMPAIGN}&campaignId=${campaignId}`)
+            }
+          >
+            Edit
+          </button>
+        )}
+
+        {status == Status.ONGOING && (
+          <button type="button" onClick={() => console.log('Pausing Campaign')}>
+            Pause
+          </button>
+        )}
+
+        {status == Status.PAUSED && (
+          <button
+            type="button"
+            onClick={() => console.log('Resuming Campaign')}
+          >
+            Resume
+          </button>
+        )}
+
+        {status == Status.ONGOING && (
+          <button onClick={() => console.log('Stopping Campaign')}>Stop</button>
+        )}
+
+        {status == Status.YETTOSTART && (
+          <button onClick={() => console.log('Cancelling Campaign')}>
+            Cancel
+          </button>
+        )}
+      </>
+    )
+  }
+  //#endregion
+
   const renderStatusOptions = () => {
     return (
       <div className={styles.options}>
@@ -512,145 +556,135 @@ const CampaignTable = ({ company }: { company: string }) => {
         </div>
 
         <table className={styles.table}>
-          <tr className={styles.table_header}>
-            <th>
-              <div className={styles.alignRow}>
-                <p>Campaign Name</p>
-                <button type="button" onClick={handleCampaignNameFilter}>
-                  <Image
-                    src={renderFilterImage(HeaderType.CampaignName)}
-                    alt="CampaignName Filter Icon"
-                  />
-                </button>
-              </div>
-            </th>
-            <th>
-              <div className={styles.alignRow}>
-                <p>Status</p>
-                <button
-                  type="button"
-                  onClick={() =>
-                    setShowStatusFilterOptions(!showStatusFilterOptions)
-                  }
-                >
-                  <Image
-                    src={renderFilterImage(HeaderType.Status)}
-                    alt="CampaignName Filter Icon"
-                  />
-                </button>
-                {showStatusFilterOptions && renderStatusOptions()}
-              </div>
-            </th>
-            <th>
-              <div className={styles.alignRow}>
-                <p>Total</p>
-                <button type="button" onClick={handleTotalFilter}>
-                  <Image
-                    src={renderFilterImage(HeaderType.Total)}
-                    alt="CampaignName Filter Icon"
-                  />
-                </button>
-              </div>
-            </th>
-            <th>
-              <div className={styles.alignRow}>
-                <p>Claimed</p>
-                <button type="button" onClick={handleClaimedFilter}>
-                  <Image
-                    src={renderFilterImage(HeaderType.Claimed)}
-                    alt="CampaignName Filter Icon"
-                  />
-                </button>
-              </div>
-            </th>
-            <th>
-              <div className={styles.alignRow}>
-                <p>Creation Date</p>
-                <button type="button" onClick={handleCreationFilter}>
-                  <Image
-                    src={renderFilterImage(HeaderType.CreationDate)}
-                    alt="CampaignName Filter Icon"
-                  />
-                </button>
-              </div>
-            </th>
-            <th>
-              <div className={styles.alignRow}>
-                <p>Date Started</p>
-                <button type="button" onClick={handleDateStartedFilter}>
-                  <Image
-                    src={renderFilterImage(HeaderType.DateStarted)}
-                    alt="CampaignName Filter Icon"
-                  />
-                </button>
-              </div>
-            </th>
-            <th>
-              <div className={styles.alignRow}>
-                <p>Duration</p>
-                <button type="button" onClick={handleDurationFilter}>
-                  <Image
-                    src={renderFilterImage(HeaderType.Duration)}
-                    alt="CampaignName Filter Icon"
-                  />
-                </button>
-              </div>
-            </th>
-            <th>
-              <p>Action</p>
-            </th>
-          </tr>
+          <thead>
+            <tr className={styles.table_header}>
+              <th>
+                <div className={styles.alignRow}>
+                  <p>Campaign Name</p>
+                  <button type="button" onClick={handleCampaignNameFilter}>
+                    <Image
+                      src={renderFilterImage(HeaderType.CampaignName)}
+                      alt="CampaignName Filter Icon"
+                    />
+                  </button>
+                </div>
+              </th>
+              <th>
+                <div className={styles.alignRow}>
+                  <p>Status</p>
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setShowStatusFilterOptions(!showStatusFilterOptions)
+                    }
+                  >
+                    <Image
+                      src={renderFilterImage(HeaderType.Status)}
+                      alt="CampaignName Filter Icon"
+                    />
+                  </button>
+                  {showStatusFilterOptions && renderStatusOptions()}
+                </div>
+              </th>
+              <th>
+                <div className={styles.alignRow}>
+                  <p>Total</p>
+                  <button type="button" onClick={handleTotalFilter}>
+                    <Image
+                      src={renderFilterImage(HeaderType.Total)}
+                      alt="CampaignName Filter Icon"
+                    />
+                  </button>
+                </div>
+              </th>
+              <th>
+                <div className={styles.alignRow}>
+                  <p>Claimed</p>
+                  <button type="button" onClick={handleClaimedFilter}>
+                    <Image
+                      src={renderFilterImage(HeaderType.Claimed)}
+                      alt="CampaignName Filter Icon"
+                    />
+                  </button>
+                </div>
+              </th>
+              <th>
+                <div className={styles.alignRow}>
+                  <p>Creation Date</p>
+                  <button type="button" onClick={handleCreationFilter}>
+                    <Image
+                      src={renderFilterImage(HeaderType.CreationDate)}
+                      alt="CampaignName Filter Icon"
+                    />
+                  </button>
+                </div>
+              </th>
+              <th>
+                <div className={styles.alignRow}>
+                  <p>Date Started</p>
+                  <button type="button" onClick={handleDateStartedFilter}>
+                    <Image
+                      src={renderFilterImage(HeaderType.DateStarted)}
+                      alt="CampaignName Filter Icon"
+                    />
+                  </button>
+                </div>
+              </th>
+              <th>
+                <div className={styles.alignRow}>
+                  <p>Duration</p>
+                  <button type="button" onClick={handleDurationFilter}>
+                    <Image
+                      src={renderFilterImage(HeaderType.Duration)}
+                      alt="CampaignName Filter Icon"
+                    />
+                  </button>
+                </div>
+              </th>
+              <th>
+                <p>Action</p>
+              </th>
+            </tr>
+          </thead>
 
-          {displayCampaignData.length > 0 ? (
-            <>
-              {displayCampaignData.map((campaign) => (
-                <tr key={campaign.campaignId} className={styles.table_data}>
-                  <td>{campaign.campaignName}</td>
-                  <td className={styles.table_data_centerObject}>
-                    <StatusTag status={campaign.status} />
-                  </td>
-                  <td>{campaign.total}</td>
-                  <td>{campaign.claimed}</td>
-                  <td>
-                    {formatTimestampToDate(campaign.campaignCreationDate)}
-                  </td>
-                  <td>{formatTimestampToDate(campaign.campaignStartDate)}</td>
-                  <td>{getDaysFromTimestamp(campaign.duration)} days left</td>
-                  <td>
-                    <button
-                      type="button"
-                      onClick={() => router.push(Routes.EDIT_CAMPAIGN)}
-                    >
-                      Edit
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => console.log('Pausing Campaign')}
-                    >
-                      Pause
-                    </button>
-                    <button onClick={() => console.log('Stopping Campaign')}>
-                      Stop
-                    </button>
+          <tbody>
+            {displayCampaignData.length > 0 ? (
+              <>
+                {displayCampaignData.map((campaign) => (
+                  <tr key={campaign.campaignId} className={styles.table_data}>
+                    <td>{campaign.campaignName}</td>
+                    <td className={styles.table_data_centerObject}>
+                      <StatusTag status={campaign.status} />
+                    </td>
+                    <td>{campaign.total}</td>
+                    <td>{campaign.claimed}</td>
+                    <td>
+                      {formatTimestampToDate(campaign.campaignCreationDate)}
+                    </td>
+                    <td>{formatTimestampToDate(campaign.campaignStartDate)}</td>
+                    <td>{getDaysFromTimestamp(campaign.duration)} days left</td>
+                    <td>
+                      {renderActions(campaign.campaignId, campaign.status)}
+                    </td>
+                  </tr>
+                ))}
+
+                <tr className={styles.table_pagination}>
+                  <td colSpan={8}>
+                    <Pagination
+                      currentPageNumber={currentPage}
+                      setCurrentPageNumber={setCurrentPage}
+                      finalPage={maxPage}
+                    />
                   </td>
                 </tr>
-              ))}
-
-              <tr className={styles.table_pagination}>
-                <td colSpan={8}>
-                  <Pagination
-                    currentPageNumber={currentPage}
-                    setCurrentPageNumber={setCurrentPage}
-                    finalPage={maxPage}
-                  />
-                </td>
+              </>
+            ) : (
+              <tr className={styles.table_none}>
+                <td colSpan={8}>No campaigns found!</td>
               </tr>
-            </>
-          ) : (
-            <tr className={styles.table_none}>
-              <td colSpan={8}>No campaigns found!</td>
-            </tr>
-          )}
+            )}
+          </tbody>
         </table>
       </div>
     </div>
