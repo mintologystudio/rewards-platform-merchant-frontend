@@ -3,7 +3,7 @@ export enum IconEnum {
   GIFT,
 }
 
-enum SocialEnum {
+export enum SocialEnum {
   TWITTER = 'twitter',
   DISCORD = 'discord',
   WEBSITE = 'website',
