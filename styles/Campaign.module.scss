@@ -22,11 +22,14 @@
     padding-top: 7.8rem;
   }
 
-  .listContainer {
-    margin-top: 60px;
-    margin-bottom: 60px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  & h2 {
+    font-family: $baseFont;
+    font-size: 2.4rem;
+    color: $black;
+    font-weight: 700;
+
+    @include l {
+      font-size: 3.6rem;
+    }
   }
 }

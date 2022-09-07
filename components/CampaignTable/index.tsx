@@ -59,7 +59,7 @@ export interface ICampaignDetails {
   duration: number
 }
 
-const MockAdiasCampaignData: ICampaignDetails[] = [
+export const MockAdiasCampaignData: ICampaignDetails[] = [
   {
     merchantName: 'Adidas',
     merchantAddress: '0x',

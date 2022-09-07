@@ -1,0 +1,246 @@
+@import '../../styles/variables.module.scss';
+@import '../../styles/mixin.module.scss';
+
+.container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 100vw;
+  height: 100%;
+
+  margin: 5rem 0;
+}
+
+.main {
+  height: 100%;
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.content {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  width: 80vw;
+  max-width: 120rem;
+  height: 100%;
+
+  padding: 4rem;
+
+  background-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.09);
+  border-radius: 2.1rem;
+
+  &_section {
+    width: 45%;
+  }
+
+  &_field {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+
+    margin: 2rem 0;
+
+    &:first-child {
+      margin-top: 0;
+    }
+
+    & label {
+      font-family: $baseFont;
+      font-weight: 700;
+      font-size: 1.4rem;
+
+      margin-bottom: 0.5rem;
+    }
+
+    & input,
+    textarea {
+      font-family: $subFont;
+      color: $black;
+
+      background-color: $lightgrey;
+      box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.07);
+      border-radius: 1rem;
+      border: none;
+      padding: 1rem 2rem;
+      font-size: 1.8rem;
+      resize: none;
+
+      width: 100%;
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+    & span {
+      font-family: $baseFont;
+      color: $pink;
+      font-size: 1rem;
+    }
+
+    &_errorHighlight {
+      border: 0.1rem solid $pink !important;
+    }
+  }
+
+  &_checkBox {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin: 2rem 0;
+
+    & label {
+      font-family: $baseFont;
+      font-size: 1.4rem;
+    }
+
+    & input {
+      margin: 0.4rem 0.5rem 0 0;
+
+      &[type='checkbox'] {
+        accent-color: $pink;
+      }
+    }
+  }
+
+  & button {
+    background-color: $pink;
+    margin: 0;
+    width: 100%;
+    padding: 1rem 3rem;
+    font-family: $baseFont;
+    color: $white;
+    font-weight: 700;
+    border: none;
+    border-radius: 1rem;
+    cursor: pointer;
+  }
+
+  &_error {
+    color: $pink;
+    font-family: $baseFont;
+    font-size: 1.4rem;
+    width: 100%;
+
+    margin-top: 2rem;
+
+    text-align: center;
+  }
+}
+
+.divider {
+  position: relative;
+  display: block;
+  height: 58.3rem;
+  width: 0.3rem;
+  background-color: $lightgrey;
+}
+
+.no_margin {
+  margin: 0;
+}
+
+.searchResult {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+
+  height: 40rem; // This is the maximum height of the search result container
+
+  overflow-y: auto;
+
+  padding: 0;
+  list-style: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  @include xl {
+    width: 100%;
+  }
+
+  &_tabs {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    align-items: center;
+    justify-content: space-evenly;
+
+    background-color: $white;
+    width: 100%;
+    border-radius: 1rem;
+
+    margin: 0.5rem 0;
+
+    padding: 1rem 0;
+
+    border: 1px solid #dddddd;
+    border-radius: 1rem;
+
+    cursor: pointer;
+
+    &:first-child {
+      margin-top: 0 !important;
+    }
+
+    &:last-child {
+      margin-bottom: 0 !important;
+    }
+
+    &_image {
+      position: relative;
+      margin: 0 auto;
+      height: 6rem;
+      width: 6rem;
+    }
+
+    & p {
+      font-family: $baseFont;
+      color: $black;
+      font-size: 1.2rem;
+
+      & span {
+        color: $black;
+      }
+    }
+
+    &_data {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      & p {
+        font-family: $baseFont;
+        color: $black;
+        font-size: 1.2rem;
+      }
+    }
+  }
+
+  &_selection {
+    margin: 0.5rem 0 1rem 0;
+    width: 100%;
+
+    &_text {
+      font-family: $baseFont;
+      color: $black;
+      font-size: 1.4rem;
+    }
+  }
+}
