@@ -13,6 +13,7 @@ import AscIcon from '../../public/assets/misc/filter/asc.svg'
 import DescIcon from '../../public/assets/misc/filter/desc.svg'
 import InactiveMoreIcon from '../../public/assets/misc/filter/inactiveMore.svg'
 import ActiveMoreIcon from '../../public/assets/misc/filter/activeMore.svg'
+import { MockAdiasCampaignData } from '../../utils/MOCK_DATA'
 
 enum TypeOfFilter {
   CampaignNameAsc,
@@ -57,122 +58,10 @@ export interface ICampaignDetails {
   campaignEndDate: number
   campaignCreationDate: number
   duration: number
+  rewardDesc: string
+  rewardCode: string
+  nftCollaboration: any
 }
-
-export const MockAdiasCampaignData: ICampaignDetails[] = [
-  {
-    merchantName: 'Adidas',
-    merchantAddress: '0x',
-    merchantId: 1,
-    campaignName: '9.9 Sales',
-    campaignId: 1,
-    status: 'Ongoing',
-    total: 123,
-    claimed: 10,
-    campaignStartDate: 1641391099000,
-    campaignEndDate: 1644069499000,
-    campaignCreationDate: 1620914299000,
-    duration: 123123,
-  },
-  {
-    merchantName: 'Adidas',
-    merchantAddress: '0x',
-    merchantId: 1,
-    campaignName: 'Black Friday',
-    campaignId: 2,
-    status: 'Yet to start',
-    total: 123,
-    claimed: 20,
-    campaignStartDate: 1644069499000,
-    campaignEndDate: 1646488699000,
-    campaignCreationDate: 1626184699000,
-    duration: 123123,
-  },
-  {
-    merchantName: 'Adidas',
-    merchantAddress: '0x',
-    merchantId: 1,
-    campaignName: 'Web3 Week',
-    campaignId: 3,
-    status: 'Cancelled',
-    total: 123,
-    claimed: 100,
-    campaignStartDate: 1646488699000,
-    campaignEndDate: 1662386299000,
-    campaignCreationDate: 1631541499000,
-    duration: 123123,
-  },
-  {
-    merchantName: 'Adidas',
-    merchantAddress: '0x',
-    merchantId: 1,
-    campaignName: 'Worldwide Shoe Day',
-    campaignId: 4,
-    status: 'Paused',
-    total: 123,
-    claimed: 34,
-    campaignStartDate: 1662386299000,
-    campaignEndDate: 1649167099000,
-    campaignCreationDate: 1636811899000,
-    duration: 123123,
-  },
-  {
-    merchantName: 'Adidas',
-    merchantAddress: '0x',
-    merchantId: 1,
-    campaignName: 'Valentines Special',
-    campaignId: 5,
-    status: 'Ongoing',
-    total: 123,
-    claimed: 87,
-    campaignStartDate: 1649167099000,
-    campaignEndDate: 1651759099000,
-    campaignCreationDate: 1581602299000,
-    duration: 123123,
-  },
-  {
-    merchantName: 'Adidas',
-    merchantAddress: '0x',
-    merchantId: 1,
-    campaignName: '12.12 Sales',
-    campaignId: 6,
-    status: 'Yet to start',
-    total: 123,
-    claimed: 25,
-    campaignStartDate: 1651759099000,
-    campaignEndDate: 1654437499000,
-    campaignCreationDate: 1589378299000,
-    duration: 123123,
-  },
-  {
-    merchantName: 'Adidas',
-    merchantAddress: '0x',
-    merchantId: 1,
-    campaignName: 'Kaiju x Adidas Collab',
-    campaignId: 7,
-    status: 'Cancelled',
-    total: 123,
-    claimed: 11,
-    campaignStartDate: 1654437499000,
-    campaignEndDate: 1657029499000,
-    campaignCreationDate: 1597327099000,
-    duration: 123123,
-  },
-  {
-    merchantName: 'Adidas',
-    merchantAddress: '0x',
-    merchantId: 1,
-    campaignName: 'Opening special',
-    campaignId: 8,
-    status: 'Paused',
-    total: 123,
-    claimed: 2,
-    campaignStartDate: 1657029499000,
-    campaignEndDate: 1659707899000,
-    campaignCreationDate: 1607867899000,
-    duration: 123123,
-  },
-]
 
 const formatTimestampToDate = (timestamp: number) => {
   const [_day, _month, _year] = getReadableDate(timestamp)

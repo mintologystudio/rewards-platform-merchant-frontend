@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import styles from './index.module.scss'
 import { useRouter } from 'next/router'
 import Routes from '../../utils/constants/routes'
-import { StringSchema } from 'yup'
+import { MockNFTSearchResultList } from '../../utils/MOCK_DATA'
 
 interface ICampaignForm {
   campaignName: string
@@ -24,57 +24,6 @@ interface ICampaignFormError {
   nftCollaboration: string
   quantity: string
 }
-
-const mockNFTSearchResultList = [
-  {
-    image: 'azuki',
-    name: 'Azuki',
-    supply: 10000,
-    owners: 5000,
-  },
-  {
-    image: 'clonex',
-    name: 'CloneX',
-    supply: 10000,
-    owners: 5000,
-  },
-  {
-    image: 'cryptopunks',
-    name: 'CryptoPunks',
-    supply: 10000,
-    owners: 5000,
-  },
-  {
-    image: 'moonbirds',
-    name: 'MoonBirds',
-    supply: 10000,
-    owners: 5000,
-  },
-  // {
-  //   image: 'azuki',
-  //   name: 'Azuki2',
-  //   supply: 10000,
-  //   owners: 5000,
-  // },
-  // {
-  //   image: 'clonex',
-  //   name: 'CloneX2',
-  //   supply: 10000,
-  //   owners: 5000,
-  // },
-  // {
-  //   image: 'cryptopunks',
-  //   name: 'CryptoPunks2',
-  //   supply: 10000,
-  //   owners: 5000,
-  // },
-  // {
-  //   image: 'moonbirds',
-  //   name: 'MoonBirds2',
-  //   supply: 10000,
-  //   owners: 5000,
-  // },
-]
 
 const CampaignForm = ({
   data,
@@ -124,7 +73,7 @@ const CampaignForm = ({
     if (query.length <= 2) return setSearchResult([])
 
     // TODO: Searching of NFT collections to be perform via API
-    setSearchResult(mockNFTSearchResultList)
+    setSearchResult(MockNFTSearchResultList)
   }
 
   const handleCreation = (e: any) => {

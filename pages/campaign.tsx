@@ -1,14 +1,12 @@
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import CampaignForm from '../components/CampaignForm'
-import {
-  ICampaignDetails,
-  MockAdiasCampaignData,
-} from '../components/CampaignTable'
+import { ICampaignDetails } from '../components/CampaignTable'
 import Meta from '../components/Meta'
 import Navigation from '../components/Navigation'
 import styles from '../styles/Campaign.module.scss'
 import Routes from '../utils/constants/routes'
+import { MockAdiasCampaignData } from '../utils/MOCK_DATA'
 
 enum Mode {
   CREATE = 'create',
