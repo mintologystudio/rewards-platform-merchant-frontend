@@ -12,6 +12,7 @@ interface ICampaignForm {
   rewardDesc: string
   rewardCode: string
   nftCollaboration: any
+  quantity: number
 }
 
 interface ICampaignFormError {
@@ -21,6 +22,7 @@ interface ICampaignFormError {
   rewardDesc: string
   rewardCode: string
   nftCollaboration: string
+  quantity: string
 }
 
 const mockNFTSearchResultList = [
@@ -89,6 +91,7 @@ const CampaignForm = ({
     rewardDesc: '',
     rewardCode: '',
     nftCollaboration: null,
+    quantity: 0,
   })
   const [campaignDetailsError, setCampaignDetailsError] =
     useState<ICampaignFormError>({
@@ -98,6 +101,7 @@ const CampaignForm = ({
       rewardDesc: '',
       rewardCode: '',
       nftCollaboration: '',
+      quantity: '',
     })
 
   const [tnc, setTnc] = useState<boolean>(false)
@@ -134,6 +138,7 @@ const CampaignForm = ({
     let _rewardDescError = ''
     let _rewardCodeError = ''
     let _nftCollabError = ''
+    let _quantityError = ''
 
     if (!tnc) setError('Please agree to our terms and conditions.')
     if (!campaignDetails.campaignName)
@@ -165,6 +170,9 @@ const CampaignForm = ({
     if (!campaignDetails.nftCollaboration)
       _nftCollabError = 'Please select one NFT collection.'
 
+    if (campaignDetails.quantity <= 0)
+      _quantityError = 'At least have one voucher claimable.'
+
     if (
       error ||
       _campaignNameError ||
@@ -172,7 +180,8 @@ const CampaignForm = ({
       _endDateError ||
       _rewardDescError ||
       _rewardCodeError ||
-      _nftCollabError
+      _nftCollabError ||
+      _quantityError
     )
       return setCampaignDetailsError({
         campaignName: _campaignNameError,
@@ -181,6 +190,7 @@ const CampaignForm = ({
         rewardDesc: _rewardDescError,
         rewardCode: _rewardCodeError,
         nftCollaboration: _nftCollabError,
+        quantity: _quantityError,
       })
 
     console.log('Passed all the checks. Continue creation')
@@ -259,7 +269,7 @@ const CampaignForm = ({
               <textarea
                 rows={3}
                 name="rewardDesc"
-                value={campaignDetails.rewardDesc.toString()}
+                value={campaignDetails.rewardDesc}
                 onChange={(e) => handleChangeCampaignDetails(e)}
                 className={
                   campaignDetailsError.rewardDesc &&
@@ -271,21 +281,40 @@ const CampaignForm = ({
               )}
             </div>
 
-            <div className={styles.content_field}>
-              <label>REWARD CODE</label>
-              <input
-                type="text"
-                name="rewardCode"
-                value={campaignDetails.rewardCode.toString()}
-                onChange={(e) => handleChangeCampaignDetails(e)}
-                className={
-                  campaignDetailsError.rewardCode &&
-                  styles.content_field_errorHighlight
-                }
-              />
-              {campaignDetailsError.rewardCode && (
-                <span>{campaignDetailsError.rewardCode}</span>
-              )}
+            <div className={styles.content_subfield}>
+              <div className={styles.content_field}>
+                <label>REWARD CODE</label>
+                <input
+                  type="text"
+                  name="rewardCode"
+                  value={campaignDetails.rewardCode}
+                  onChange={(e) => handleChangeCampaignDetails(e)}
+                  className={
+                    campaignDetailsError.rewardCode &&
+                    styles.content_field_errorHighlight
+                  }
+                />
+                {campaignDetailsError.rewardCode && (
+                  <span>{campaignDetailsError.rewardCode}</span>
+                )}
+              </div>
+
+              <div className={`${styles.content_field} ${styles.no_margin}`}>
+                <label>QUANTITY</label>
+                <input
+                  type="number"
+                  name="quantity"
+                  value={campaignDetails.quantity}
+                  onChange={(e) => handleChangeCampaignDetails(e)}
+                  className={
+                    campaignDetailsError.quantity &&
+                    styles.content_field_errorHighlight
+                  }
+                />
+                {campaignDetailsError.quantity && (
+                  <span>{campaignDetailsError.quantity}</span>
+                )}
+              </div>
             </div>
 
             <div className={styles.content_checkBox}>

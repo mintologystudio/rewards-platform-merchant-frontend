@@ -95,12 +95,19 @@
     }
   }
 
+  &_subfield {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+
   &_checkBox {
     display: flex;
     flex-direction: row;
     align-items: flex-start;
     justify-content: flex-start;
-    margin: 2rem 0;
+    margin-bottom: 2rem;
 
     & label {
       font-family: $baseFont;
