@@ -17,7 +17,8 @@ const CampaignPage = () => {
   const router = useRouter()
   const [campaignId, setCampaignId] = useState<string>('')
   const [mode, setMode] = useState<Mode>(Mode.CREATE)
-  const [campaignDetails, setCampaignDetails] = useState<ICampaignDetails>()
+  const [campaignDetails, setCampaignDetails] =
+    useState<ICampaignDetails | null>(null)
 
   useEffect(() => {
     if (router && router.query && router.query.mode) {
@@ -41,7 +42,7 @@ const CampaignPage = () => {
       )[0]
       if (_campaign) {
         // TODO: Additional check whether is the campaign matches the merchant
-
+        console.log('Campaign', _campaign)
         setCampaignDetails(_campaign)
       } else {
         // TODO: Add react-toast to say no such campaign exist for the id
@@ -56,8 +57,11 @@ const CampaignPage = () => {
       <Navigation />
 
       <main className={styles.main}>
-        {/* <CampaignForm data={campaignDetails} isEdit /> */}
-        <CampaignForm data={null} />
+        {mode == Mode.EDIT && campaignDetails ? (
+          <CampaignForm data={campaignDetails} isEdit />
+        ) : (
+          <CampaignForm data={null} />
+        )}
       </main>
     </div>
   )

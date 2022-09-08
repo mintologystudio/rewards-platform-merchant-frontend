@@ -190,11 +190,11 @@ export const getReadableDate = (time: number) => {
   if (time < 0) return ['01', '01', '1950']
 
   const _date = new Date(time)
-  const _day = _date.getDate()
-  const _month = _date.getMonth()
+  const _day = ('0' + (_date.getDate() + 1)).slice(-2)
+  const _month = ('0' + (_date.getMonth() + 1)).slice(-2)
   const _year = _date.getFullYear()
 
-  return [_day, _month + 1, _year]
+  return [_day, _month, _year]
 }
 
 export const getDisplayAddress = (

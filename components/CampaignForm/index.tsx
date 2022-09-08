@@ -4,11 +4,13 @@ import styles from './index.module.scss'
 import { useRouter } from 'next/router'
 import Routes from '../../utils/constants/routes'
 import { MockNFTSearchResultList } from '../../utils/MOCK_DATA'
+import { ICampaignDetails } from '../CampaignTable'
+import { getReadableDate } from '../../utils'
 
 interface ICampaignForm {
   campaignName: string
-  startDate: Date
-  endDate: Date
+  startDate: number
+  endDate: number
   rewardDesc: string
   rewardCode: string
   nftCollaboration: any
@@ -29,14 +31,14 @@ const CampaignForm = ({
   data,
   isEdit = false,
 }: {
-  data: any
+  data: ICampaignDetails | null
   isEdit?: boolean
 }) => {
   const router = useRouter()
   const [campaignDetails, setCampaignDetails] = useState<ICampaignForm>({
     campaignName: '',
-    startDate: new Date(),
-    endDate: new Date(),
+    startDate: 0,
+    endDate: 0,
     rewardDesc: '',
     rewardCode: '',
     nftCollaboration: null,
@@ -76,10 +78,9 @@ const CampaignForm = ({
     setSearchResult(MockNFTSearchResultList)
   }
 
-  const handleCreation = (e: any) => {
+  const handleSubmit = (e: any) => {
     setError('')
     e.preventDefault()
-    console.log('Creating campaign:', campaignDetails)
 
     let _campaignNameError = ''
     let _startDateError = ''
@@ -142,25 +143,44 @@ const CampaignForm = ({
         quantity: _quantityError,
       })
 
-    console.log('Passed all the checks. Continue creation')
+    console.log('Passed all the checks. Continue creation / update')
+
+    if (isEdit) {
+      console.log('Saving campaign:', campaignDetails)
+    } else {
+      console.log('Creating campaign:', campaignDetails)
+    }
   }
 
   useEffect(() => {
     if (isEdit) {
       if (data) {
-        setCampaignDetails(data)
+        setCampaignDetails({
+          campaignName: data.campaignName,
+          startDate: data.campaignStartDate,
+          endDate: data.campaignEndDate,
+          rewardDesc: data.rewardDesc,
+          rewardCode: data.rewardCode,
+          nftCollaboration: data.nftCollaboration,
+          quantity: data.total,
+        })
       } else {
         // TODO: Add react-toast to say there is no data provided
         router.push(Routes.HOME)
       }
     }
-  }, [])
+  }, [isEdit, data])
+
+  const processTimestampToStringForDateInput = (timestamp: number) => {
+    const [day, month, year] = getReadableDate(timestamp)
+    return `${year}-${month}-${day}`
+  }
 
   return (
     <div className={styles.container}>
       <div className={styles.main}>
         <h2>{isEdit ? 'Edit' : 'Create'} Campaign</h2>
-        <form className={styles.content} onSubmit={handleCreation}>
+        <form className={styles.content} onSubmit={handleSubmit}>
           <div className={styles.content_section}>
             <div className={styles.content_field}>
               <label>CAMPAIGN NAME</label>
@@ -184,7 +204,9 @@ const CampaignForm = ({
               <input
                 type="date"
                 name="startDate"
-                value={campaignDetails.startDate.toString()}
+                value={processTimestampToStringForDateInput(
+                  campaignDetails.startDate
+                )}
                 onChange={(e) => handleChangeCampaignDetails(e)}
                 className={
                   campaignDetailsError.startDate &&
@@ -201,7 +223,9 @@ const CampaignForm = ({
               <input
                 type="date"
                 name="endDate"
-                value={campaignDetails.endDate.toString()}
+                value={processTimestampToStringForDateInput(
+                  campaignDetails.endDate
+                )}
                 onChange={(e) => handleChangeCampaignDetails(e)}
                 className={
                   campaignDetailsError.endDate &&
@@ -278,7 +302,7 @@ const CampaignForm = ({
               </label>
             </div>
 
-            <button type="submit">Submit</button>
+            <button type="submit">{isEdit ? 'Save' : 'Submit'}</button>
 
             <p className={styles.content_error}>{error}</p>
           </div>
